@@ -1,35 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react'
+import { AiOutlineEye } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  const [formVisible, setFormVisible] = useState(false);
+  const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFormVisible(true);
+    }, 100)
+  }, []);
+
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-500
+    via-gray-700 to-gray-900 px-4'>
+      <div className={`relative bg-gray-800 text-white shadow-lg rounded-lg p-10 max-w-md w-full
+        border border-gray-700 hover:shadow-[0_0_25px_5px_rgba(56,140,248,1)] transition duration-300
+        ${formVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10'} transform transition-all duration-500
+        ease-out`}>
+          <h2 className='text-3xl font-bold text-center mb-4'>Welcome Back</h2>
+          <p className='text-gray-400 text-center mb-6'>Login to your Account</p>
+
+          {error && <p className='text-red-500 text-center mb-4'>{error}</p>}
+
+          <form className=' space-y-6'>
+            <div>
+              <label htmlFor="email" className=' block text-gray-300 font-medium mb-1 '>Email Address</label>
+              <input required type="email" name='email' id='email' placeholder='Enter Your Email' className='w-full border-b
+               border-gray-600 bg-transparent text-white px-2 py-1 focus:border-cyan-400 focus:outline-none' />
+            </div>
+
+            <div className=' relative'>
+              <label htmlFor="password" className='block text-gray-300 font-medium mb-1'> Password</label>
+              <input type={passwordVisible ? 'text': 'password'} id='password' name='password' placeholder = 'Enter your Password' className='w-full border-b
+               border-gray-600 bg-transparent text-white px-2 py-1 focus:border-cyan-400 focus:outline-none' />
+              <button onClick={() => setPasswordVisible(!passwordVisible)} className='absolute right-2 top-8 text-gray-400 hover:text-cyan-400 focus:outline-none'>
+               {passwordVisible ? (
+                  <AiOutlineEye className='h-5 w-5' />
+                  
+               ) : (<AiOutlineEye className='w-5 h-5'/>)}
+              </button>
+            </div>
+            <button type='submit' className=' w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white py-2 rounded-lg hover:bg-gradient-to-l
+             hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 focus:ring focus:ring-cyan-300
+             focus:outline-none shadow-md hover:shadow-lg'>
+              Login              
+            </button>
+          </form>
+
+
+          {/* GOOGLE BUTTON */}
+          <div className=' mt-8 flex items-center justify-between'>
+            <span className=' border-b w-1/4 border-b-gray-600'></span>
+            <span className=' text-gray-400 text-sm'>OR</span>
+            <span className=' border-b w-1/4 border-b-gray-600'></span>
+          </div>
+
+
+          {/* GOOGLE BUTTON */}
+          <button className=' mt6 w-full flex items-center justify-center bg-gray-700 border-gray-600 py-2
+           rounded-lg shadow-md hover:bg-gray-600 hover:shadow-lg transition-all duration-300 focus:ring focus:ring-cyan-300
+           focus:outline-none'>
+            <FcGoogle className='h-6 w-6 mr-3' />
+            Continue with Google
+          </button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
-
 export default App
